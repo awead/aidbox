@@ -59,10 +59,6 @@ The docker-compose file includes the configuration for running an mcp server. Th
 started, enable all access to the mcp endpoint with this policy:
 
 ``` json
-PUT /AccessPolicy/allow-mcp-endpoints
-content-type: application/json
-accept: application/json
-
 {
   "resourceType": "AccessPolicy",
   "id": "allow-mcp-endpoints",
@@ -85,7 +81,8 @@ accept: application/json
 
 ```
 
-You can add this policy via Aidbox > IAM > AccessPolicy see (http://localhost:8080/ui/console#/iam/auth/AccessPolicy)
+You can add this policy via Aidbox > IAM > AccessPolicy and click "Create +" see
+(http://localhost:8080/ui/console#/iam/auth/AccessPolicy/new?tab=raw&create=true)
 
 ### Configuring Claude Code
 
