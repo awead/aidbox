@@ -107,3 +107,24 @@ Then start a new Claude session and run:
 ```
 
 Start asking questions! For example, "Using aidbox-mcp, can you tell me who the oldest living patient is?"
+
+#### Notes
+
+Claude is using [supergateway](https://www.npmjs.com/package/supergateway) under the hood to interact with the mcp
+server. From `~/.claude.json` you can see:
+
+```bash
+"mcpServers": {
+  "aidbox-mcp": {
+    "type": "stdio",
+    "command": "npx",
+    "args": [
+      "-y",
+      "supergateway",
+      "--sse",
+      "http://localhost:8080/sse"
+    ],
+    "env": {}
+  }
+}
+```
