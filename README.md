@@ -1,6 +1,6 @@
 # Aidbox
 
-A local instance of Aidbox run via docker compose.
+A local instance of Aidbox run via docker compose with an additional OpenAI chat interface.
 
 ## Local
 
