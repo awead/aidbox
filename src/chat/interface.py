@@ -57,12 +57,15 @@ class ChatInterface(BaseModel):
         """
         self.add_message("user", message)
         
-        response: ChatCompletion = self._client.chat.completions.create(
-            model=self.model,
-            messages=self.get_conversation_history(),
-            temperature=self.temperature,
-            max_tokens=self.max_tokens,
-        )
+        params = {
+            "model": self.model,
+            "messages": self.get_conversation_history(),
+            "temperature": self.temperature,
+        }
+        if self.max_tokens is not None:
+            params["max_tokens"] = self.max_tokens
+        
+        response: ChatCompletion = self._client.chat.completions.create(**params)
         
         assistant_message = response.choices[0].message.content
         self.add_message("assistant", assistant_message)
@@ -110,12 +113,15 @@ class AzureChatInterface(ChatInterface):
         """
         self.add_message("user", message)
         
-        response: ChatCompletion = self._client.chat.completions.create(
-            model=self.deployment_name,
-            messages=self.get_conversation_history(),
-            temperature=self.temperature,
-            max_tokens=self.max_tokens,
-        )
+        params = {
+            "model": self.deployment_name,
+            "messages": self.get_conversation_history(),
+            "temperature": self.temperature,
+        }
+        if self.max_tokens is not None:
+            params["max_tokens"] = self.max_tokens
+        
+        response: ChatCompletion = self._client.chat.completions.create(**params)
         
         assistant_message = response.choices[0].message.content
         self.add_message("assistant", assistant_message)
