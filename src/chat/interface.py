@@ -112,7 +112,7 @@ class AzureChatInterface(ChatInterface):
     deployment_name: str = Field(..., description="Azure OpenAI deployment name")
     
     def __init__(self, **data):
-        BaseModel.__init__(self, **data)
+        super().__init__(**data)
         self._client = AzureOpenAI(
             api_key=self.api_key,
             azure_endpoint=self.azure_endpoint,
