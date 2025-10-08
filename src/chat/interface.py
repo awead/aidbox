@@ -6,11 +6,13 @@ from openai.types.chat import ChatCompletion
 
 class ChatMessage(BaseModel):
     """A single message in a chat conversation."""
-    role: Literal["system", "user", "assistant", "function"] = Field(
+    role: Literal["system", "user", "assistant", "function", "tool"] = Field(
         ..., description="Role of the message sender"
     )
-    content: str = Field(..., description="Content of the message")
+    content: Optional[str] = Field(None, description="Content of the message")
     name: Optional[str] = Field(None, description="Optional name for the message sender")
+    tool_calls: Optional[List[Dict]] = Field(None, description="Tool calls for assistant messages")
+    tool_call_id: Optional[str] = Field(None, description="Tool call ID for tool response messages")
 
 
 class ChatInterface(BaseModel):
@@ -28,15 +30,30 @@ class ChatInterface(BaseModel):
         super().__init__(**data)
         self._client = OpenAI(api_key=self.api_key)
     
-    def add_message(self, role: str, content: str, name: Optional[str] = None) -> None:
+    def add_message(
+        self,
+        role: str,
+        content: Optional[str] = None,
+        name: Optional[str] = None,
+        tool_calls: Optional[List[Dict]] = None,
+        tool_call_id: Optional[str] = None
+    ) -> None:
         """Add a message to the conversation history.
-        
+
         Args:
-            role: Role of the message sender (system, user, assistant, function)
-            content: Content of the message
+            role: Role of the message sender (system, user, assistant, function, tool)
+            content: Content of the message (optional for assistant messages with tool_calls)
             name: Optional name for the message sender
+            tool_calls: Tool calls for assistant messages
+            tool_call_id: Tool call ID for tool response messages
         """
-        self.messages.append(ChatMessage(role=role, content=content, name=name))
+        self.messages.append(ChatMessage(
+            role=role,
+            content=content,
+            name=name,
+            tool_calls=tool_calls,
+            tool_call_id=tool_call_id
+        ))
     
     def get_conversation_history(self) -> List[Dict]:
         """Get the conversation history in the format expected by the OpenAI API.

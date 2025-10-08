@@ -137,21 +137,22 @@ async def main():
                         # Check if there are tool calls
                         if message.tool_calls:
                             # Add assistant message with tool calls to history
-                            chat.messages.append({
-                                "role": "assistant",
-                                "content": message.content,
-                                "tool_calls": [
-                                    {
-                                        "id": tc.id,
-                                        "type": "function",
-                                        "function": {
-                                            "name": tc.function.name,
-                                            "arguments": tc.function.arguments
-                                        }
+                            tool_calls_data = [
+                                {
+                                    "id": tc.id,
+                                    "type": "function",
+                                    "function": {
+                                        "name": tc.function.name,
+                                        "arguments": tc.function.arguments
                                     }
-                                    for tc in message.tool_calls
-                                ]
-                            })
+                                }
+                                for tc in message.tool_calls
+                            ]
+                            chat.add_message(
+                                role="assistant",
+                                content=message.content,
+                                tool_calls=tool_calls_data
+                            )
 
                             # Execute each tool call
                             for tool_call in message.tool_calls:
@@ -206,22 +207,22 @@ async def main():
                                     print(f"[Result: {result_str[:200]}...]")
 
                                     # Add tool result to conversation
-                                    chat.messages.append({
-                                        "role": "tool",
-                                        "tool_call_id": tool_call.id,
-                                        "content": result_str
-                                    })
+                                    chat.add_message(
+                                        role="tool",
+                                        tool_call_id=tool_call.id,
+                                        content=result_str
+                                    )
 
                                 except Exception as e:
                                     error_msg = f"Error calling tool: {str(e)}"
                                     print(f"[{error_msg}]")
                                     import traceback
                                     traceback.print_exc()
-                                    chat.messages.append({
-                                        "role": "tool",
-                                        "tool_call_id": tool_call.id,
-                                        "content": error_msg
-                                    })
+                                    chat.add_message(
+                                        role="tool",
+                                        tool_call_id=tool_call.id,
+                                        content=error_msg
+                                    )
 
                             # Continue loop to get assistant's response with tool results
                             continue
