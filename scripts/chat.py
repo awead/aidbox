@@ -61,7 +61,7 @@ async def main():
         azure_endpoint=api_endpoint,
         deployment_name="gpt-5-mini",
         model="gpt-5-mini",
-        temperature=1.0  # temp isn't supported with gpt-5-mini
+        temperature=1.0
     )
 
     # Initialize MCP client and get tools
