@@ -1,0 +1,26 @@
+[project]
+name = "aidbox"
+version = "0.1.0"
+description = "Aidbox - Python chat interface for OpenAI models"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "pydantic-ai-slim[openai]>=1.0.15",
+    "openai>=1.6.0",
+    "fastmcp>=2.0.0",
+    "rich>=13.0.0",
+]
+
+[build-system]
+requires = ["setuptools>=42.0.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["src*"]
+
+[dependency-groups]
+dev = [
+    "ipython>=9.6.0",
+    "ruff>=0.13.3",
+]
