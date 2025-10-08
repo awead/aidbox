@@ -84,6 +84,26 @@ started, enable all access to the mcp endpoint with this policy:
 You can add this policy via Aidbox > IAM > AccessPolicy and click "Create +" see
 (http://localhost:8080/ui/console#/iam/auth/AccessPolicy/new?tab=raw&create=true)
 
+### Using the Console
+
+You can interact with the Aidbox mcp server via an ipython session:
+
+```bash
+uv run ipython -i src/utils/console.py
+```
+
+Then from then console session, list the available tools:
+
+```bash
+await list_tools()
+```
+
+Or get the details for a specific one:
+
+```bash
+await get_tool([name])
+```
+
 ### Configuring Claude Code
 
 As as simple example, you can use Claude to interface with the server.
