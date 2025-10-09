@@ -192,4 +192,4 @@ Start the web server:
 uv run scripts/web_server.py   
 ```
 
-The goto [http://localhost:8000/](http://localhost:8000/)
+Then go to [http://localhost:8000/](http://localhost:8000/)
