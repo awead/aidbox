@@ -164,7 +164,7 @@ cp env-sample.txt .env
 direnv allow
 ```
 
-### Chatting with Aidbox
+### Chatting with Aidbox (terminal)
 
 You can start a chat session that uses an OpenAI gpt model along with the mcp sever that provides a conversational
 interface to the Aidbox instance.
@@ -183,3 +183,13 @@ Copy any one of the identifiers and ask the agent:
 The agent will keep context, so you can ask follow up questions such as:
 
 > "Can you provide me a summary of their last clinical encounter and include all current medications and conditions."
+
+### Chatting with Aidbox (web)
+
+Start the web server:
+
+```bash
+uv run scripts/web_server.py   
+```
+
+Then go to [http://localhost:8000/](http://localhost:8000/)

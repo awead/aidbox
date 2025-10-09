@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FHIR Chat - Aidbox MCP</title>
+    <link rel="stylesheet" href="{{ url_for('static', path='/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>FHIR Chat Interface</h1>
+            <p class="subtitle">Chat with Aidbox MCP Server</p>
+            <div id="connection-status" class="status-disconnected">
+                <span class="status-indicator"></span>
+                <span id="status-text">Connecting...</span>
+            </div>
+        </header>
+
+        <main>
+            <div id="chat-container">
+                <div id="messages"></div>
+            </div>
+
+            <form id="chat-form">
+                <div class="input-container">
+                    <input
+                        type="text"
+                        id="message-input"
+                        placeholder="Type your message here..."
+                        autocomplete="off"
+                        disabled
+                    >
+                    <button type="submit" id="send-button" disabled>Send</button>
+                </div>
+            </form>
+        </main>
+
+        <aside id="sidebar">
+            <h2>Available Tools</h2>
+            <div id="tools-list">
+                <p class="loading">Loading tools...</p>
+            </div>
+        </aside>
+    </div>
+
+    <script src="{{ url_for('static', path='/chat.js') }}"></script>
+</body>
+</html>
